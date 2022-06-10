@@ -85,7 +85,7 @@
 
   - `remote_repository` ：2 つの指定方法
     - URL :例：https://github.com/slime830/slime830.github.io.git
-    - SSH :例：git@github.com:slime830/github.io.git
+    - SSH :例：git@github.com:slime830/slime830.github.io.git
 
   どちらでも可。
 
