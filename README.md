@@ -151,6 +151,8 @@
 
   SSH は SSH で、Key Set を作って GitHub に登録して…ってやる。めんどくさいね
 
+  GitHub への SSH 接続方法は[こっち](./github_ssh.md)に纏めます
+
 ## コミットの取り消し
 
 - リセット
