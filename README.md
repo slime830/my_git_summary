@@ -44,6 +44,30 @@
 
   - `remote_branch_name` ：リモートリポジトリ側のブランチ指定。詳しくは後述
 
+- ファイル名変更、ファイル移動
+
+  ```bash
+  git mv old_filepath new_filepath
+  ```
+
+  - `old_filepath`：移動させるファイルパス（移動元）
+  - `new_filepath`：移動先のファイルパス（移動先）
+
+  「切り取り」のイメージ
+
+  UNIX の`mv`コマンドを理解した方が早い。Windows コマンドプロンプトで`mv`使えないけど。
+  よし、まずは powershell を使おう。そして慣れたら Linux（WSL2） にしよう(布教)
+
+- ファイル削除
+
+  ```bash
+  git rm filepath
+  ```
+
+  - `filepath`：削除するファイルパス
+
+  Git の管理上から除外し、ファイル自体も削除する。
+
 ## ブランチ操作
 
 - ブランチ一覧確認
@@ -195,3 +219,38 @@
   ```bash
   git config --global user.email "hogehoge@hoge.co.jp"
   ```
+
+## 特殊ファイル
+
+- .gitkeep  
+  空ファイル
+
+  Git の挙動上、「空ディレクトリ」は Git の管理から外れる
+
+  しかし、「空ディレクトリが存在していることを Git に認識させたい」時が来ると、困る
+
+  その際には「.gitkeep」というファイルを作成して、Git に認識させる。
+  ファイル名は本来なんでもいいけど、「意図的に空ファイル使ってます」っていう作法として、「.gitkeep」にする
+
+- .gitignore  
+  Git の追跡対象外にするファイルを記述する
+
+  以下例を交えて
+
+  ```
+  /hoge.txt
+  /hoge_directory/*
+  /hoge_directory2/*.txt
+  !/hoge_directory/keep.txt
+  ```
+
+  1. リポジトリ直下の`hoge.txt`を追跡対象外にする
+  2. `hoge_directory`の中にある全てのファイルを追跡対象外にする。
+  3. `hoge_directory2`の中にある全ての`txt`ファイルを追跡対象外にする
+  4. `hoge_dicectory`の中にある全てのファイルが追跡対象外になっているが、`keep.txt`だけは追跡対象外としない
+
+  「\*」はワイルドカードと呼ばれます。これは「任意の文字の 0 以上の連続」を表します。
+
+  先頭に「!」を付けると、逆に追跡する（追跡対象外としない）ファイルを表します。
+
+  追跡対象外とされたファイルは、`add`や`commit`の対象になりません
