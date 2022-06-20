@@ -1,11 +1,24 @@
 # Git コマンドまとめ
 
+## 目次
+
+- [基本操作](#基本操作)
+- [ブランチ操作](#ブランチ操作)
+- [マージ](#merge)
+- [リベース](#rebase)
+- [コミット一覧の確認](#コミット一覧の確認)
+- [リモートリポジトリの設定](#リモートリポジトリの設定)
+- [一度したコミットの取り消し](#一度したコミットの取り消し)
+- [ユーザ指定](#ユーザ指定)
+- [特殊ファイル](#特殊ファイル)
+- [フィルター](#フィルター)
+
 ## 基本操作
 
 - 初期化  
    任意のディレクトリをローカルリポジトリ化する。
 
-  ```bash
+  ```sh
   git init
   ```
 
@@ -13,20 +26,20 @@
 
 - 現在の状態を確認する
 
-  ```bash
+  ```sh
   git status
   ```
 
 - クローン  
   リモートリポジトリと同一の内容のローカルリポジトリを作る
 
-  ```bash
+  ```sh
   git clone URL
   ```
 
 - リモートリポジトリの更新を、ローカルリポジトリに取り込む
 
-  ```bash
+  ```sh
   git pull remote_name remote_branch_name
   ```
 
@@ -36,7 +49,7 @@
 
 - ローカルリポジトリの更新を、リモートリポジトリに反映
 
-  ```bash
+  ```sh
   git push remote_name remote_branch_name
   ```
 
@@ -46,7 +59,7 @@
 
 - ファイル名変更、ファイル移動
 
-  ```bash
+  ```sh
   git mv old_filepath new_filepath
   ```
 
@@ -60,7 +73,7 @@
 
 - ファイル削除
 
-  ```bash
+  ```sh
   git rm filepath
   ```
 
@@ -72,20 +85,20 @@
 
 - ブランチ一覧確認
 
-  ```bash
+  ```sh
   git branch
   ```
 
 - ブランチ作成
 
-  ```bash
+  ```sh
   git branch branch_name
   ```
 
   `branch_name`という名のブランチができる
 
 - ブランチ移動
-  ```bash
+  ```sh
   git checkout branch_name
   ```
   `branch_name`という名のブランチに移動する
@@ -93,7 +106,7 @@
 ## merge
 
 - マージ
-  ```bash
+  ```sh
   git merge branch_name
   ```
   `branch_name`の内容を、カレントブランチに取り込む（マージする）
@@ -102,7 +115,7 @@
 
 - ブランチを「繋げる」（マージとは違う）
 
-  ```bash
+  ```sh
   git rebase branch_name
   ```
 
@@ -137,7 +150,7 @@
   merge はブランチ Y の全ての変更を、一度のコミットで取り込んでるイメージ
 
 - 複数コミットを 1 つに纏める
-  ```bash
+  ```sh
   git rebase -i commit_id
   ```
   - `commit_id`：纏め始める 1 つ前のコミット ID（ハッシュ値）
@@ -145,7 +158,7 @@
 ## コミット一覧の確認
 
 - コミット一覧の確認
-  ```bash
+  ```sh
   git log
   ```
 
@@ -153,13 +166,13 @@
 
 - リモートリポジトリ一覧確認
 
-  ```bash
+  ```sh
   git remote -v
   ```
 
 - リモートリポジトリを設定
 
-  ```bash
+  ```sh
   git remote add remote_name remote_repository
   ```
 
@@ -182,7 +195,7 @@
 - コミットのリセット  
   コミットを「なかったことにする」。隠蔽のイメージ
 
-  ```bash
+  ```sh
   git reset option commit_id
   ```
 
@@ -200,14 +213,14 @@
 
   リセットした内容をリモートリポジトリに反映する(push する)には、以下のように`-f`オプションを付ける
 
-  ```bash
+  ```sh
   git push origin master -f
   ```
 
 - コミットの打消し  
   「過去のコミットを打ち消す」コミットをする。公式に「間違いでした」ってみとめる感じ
 
-  ```bash
+  ```sh
   git revert commit_id
   ```
 
@@ -218,23 +231,23 @@
 ## ユーザ指定
 
 - ユーザ名確認
-  ```bash
+  ```sh
   git config --global user.name
   ```
 - ユーザ名変更
 
-  ```bash
+  ```sh
   git config --global user.name "user_name"
   ```
 
 - メールアドレス確認
 
-  ```bash
+  ```sh
   git config --global user.email
   ```
 
 - ユーザ名確認
-  ```bash
+  ```sh
   git config --global user.email "hogehoge@hoge.co.jp"
   ```
 
@@ -272,3 +285,17 @@
   先頭に「!」を付けると、逆に追跡する（追跡対象外としない）ファイルを表します。
 
   追跡対象外とされたファイルは、`add`や`commit`の対象になりません
+
+## フィルター
+
+今までのコミットを全て見て、全てのコミットの内容を変更する。
+
+- filter-branch
+
+  ```sh
+  git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch hoge.txt' -- --all
+  ```
+
+  全てのコミットで`hoge.txt`を`git rm`する例
+
+  他にもサードパーティーで`git filter-repo`もあるらしい。GitLab 何かはこちらを推奨しているらしい？？

@@ -24,7 +24,7 @@
 
    - Windows
 
-   ```bash
+   ```sh
    cd /Users/user_name
    ```
 
@@ -32,19 +32,19 @@
 
    - Linux
 
-   ```bash
+   ```sh
    cd ~
    ```
 
 2. `.ssh`ディレクトリに移動する
 
-```bash
+```sh
 cd .ssh
 ```
 
 3. 鍵を生成する
 
-```bash
+```sh
 ssh-keygen -t rsa
 ```
 
